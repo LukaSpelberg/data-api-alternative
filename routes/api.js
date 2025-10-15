@@ -7,6 +7,9 @@ const dbController = require('../controllers/dbController');
 
 const router = express.Router();
 
+const app = express()
+app.set('trust proxy', true);
+
 router.post('/insertOne', dbController.insertOne);
 router.post('/insertMany', dbController.insertMany);
 router.post('/findOne', dbController.findOne);
