@@ -3,20 +3,17 @@ const winston = require('winston');
 /**
  * Logger instance configured with Winston.
  * 
- * This logger is set to log messages at the 'info' level and above.
- * It formats the log messages in JSON format.
- * 
- * Transports:
- * - Console: Logs messages to the console.
- * 
- * @type {winston.Logger}
+ * On Vercel, writing to files is not supported (read-only filesystem),
+ * so we only use the Console transport.
  */
 const logger = winston.createLogger({
   level: 'info',
-  format: winston.format.json(),
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'logs/api.log' })
+    new winston.transports.Console()
   ]
 });
 
